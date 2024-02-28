@@ -1,5 +1,20 @@
-$font-size: 1rem;
-$font-family: 'Inter', sans-serif;
-$background-color: #fff;
-$font-color: #000;
-$page-width: 650px;
+:root {
+  --color-white: #fff;
+  --color-dark: #000;
+  --color-gray: #bdbdbd;
+  --color-dark-gray: #5c5c5c;
+  --color-middle-gray: #c4c4c4;
+  /* --color-middle-search-gray: #e4e4e4; */
+  --color-middle-border-gray: #f3f3f3;
+  --color-green: #9dd458;
+  --color-blue: #0066ff;
+  --color-light-blue: #80b2ff;
+  --color-dark-white: #e8e8e8;
+  --color-red: #d73636;
+
+  --border-radius-sm: 0.25rem;
+  --border-radius-md: 0.5rem;
+  --border-radius-lg: 1rem;
+
+  --transition: 0.2s ease;
+}

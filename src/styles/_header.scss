@@ -1,0 +1,48 @@
+.HeaderListElement {
+  display: flex;
+  flex-direction: row;
+  color: var(--color-gray);
+}
+nav {
+  //margin-top: 40px;
+}
+ul {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  //position: relative;
+}
+
+ul > a {
+  position: relative;
+  top: 25px;
+  right: 10px;
+
+  li {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-left: 15px;
+    img {
+      margin-right: 8px;
+    }
+  }
+}
+
+ul > a:first-child {
+  position: absolute;
+  top: 25px;
+  left: 5vh;
+
+  li {
+    display: flex;
+    flex-direction: row-reverse;
+    div {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  span:first-of-type {
+    color: var(--color-dark-gray);
+  }
+}
