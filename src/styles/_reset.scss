@@ -453,3 +453,10 @@ p {
 li {
   list-style: none;
 }
+
+:root {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  // width: 1920px;
+}

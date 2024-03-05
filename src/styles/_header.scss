@@ -1,3 +1,12 @@
+.borderDiv {
+  display: block;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  border-bottom: 1px solid var(--color-light-gray);
+  margin-top: 25px;
+}
 .HeaderListElement {
   display: flex;
   flex-direction: row;
@@ -15,10 +24,6 @@ ul {
 }
 
 ul > a {
-  position: relative;
-  top: 25px;
-  right: 10px;
-
   li {
     display: flex;
     flex-direction: row-reverse;
@@ -28,12 +33,13 @@ ul > a {
     }
   }
 }
+ul > a:nth-child(2) {
+  margin-left: 40vw;
+  margin-right: 0;
+}
 
 ul > a:first-child {
-  position: absolute;
-  top: 25px;
-  left: 5vh;
-
+  margin-left: 0vw;
   li {
     display: flex;
     flex-direction: row-reverse;
@@ -45,4 +51,8 @@ ul > a:first-child {
   span:first-of-type {
     color: var(--color-dark-gray);
   }
+}
+
+.wrapperHeader {
+  margin-top: 24px;
 }
