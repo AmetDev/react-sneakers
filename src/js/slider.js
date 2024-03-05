@@ -24,17 +24,28 @@ export const sliderFunc = () => {
     },
   ]
 
+  const sliderObj = new Slider(
+    elements[counter].image,
+    elements[counter].button_text,
+    elements[counter].title
+  )
+
+  ImgSlider.src = elements[counter].image
+  wrapper_slider_element.appendChild(ImgSlider)
+  wrapper_slider.appendChild(wrapper_slider_element)
+
   btnSwitch.addEventListener('click', () => {
-    console.log('hello world')
-    const sliderObj = new Slider(
-      elements[counter].image,
-      elements[counter].button_text,
-      elements[counter].title
-    )
     counter += 1
-    console.log(sliderObj)
+    if (counter == elements.length) {
+      console.log('counter', counter)
+      console.log('elements.length', elements.length)
+      btnSwitch.setAttribute('disabled', 'disabled')
+    }
+    wrapper_slider_element.removeChild(ImgSlider)
     ImgSlider.src = elements[counter].image
     wrapper_slider_element.appendChild(ImgSlider)
     wrapper_slider.appendChild(wrapper_slider_element)
   })
+
+  console.log(sliderObj)
 }
