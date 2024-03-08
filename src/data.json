@@ -1,0 +1,88 @@
+[
+  {
+    "id": 1,
+    "url": "https://i.ibb.co/phnfGwq/nike-blazer-mod-suede.jpg",
+    "price": 12999,
+    "text": "Мужские Кроссовки Nike Blazer Mid Suede",
+    "liked": false
+  },
+  {
+    "id": 2,
+    "url": "https://i.ibb.co/KjbCbSB/nike-air-max-270.jpg",
+    "price": 12999,
+    "text": "Мужские Кроссовки Nike Air Max 270",
+    "liked": false
+  },
+  {
+    "id": 3,
+    "url": "https://i.ibb.co/fN4PXS3/nike-blazer-mid-suede-white.jpg",
+    "price": 8499,
+    "text": "Мужские Кроссовки Nike Blazer Mid Suede",
+    "liked": false
+  },
+  {
+    "id": 4,
+    "url": "https://i.ibb.co/LNsq2Rv/puma-x-aka-boku.jpg",
+    "price": 8499,
+    "text": "Кроссовки Puma X Aka Boku Future Rider",
+
+    "liked": false
+  },
+  {
+    "id": 5,
+    "url": "https://i.ibb.co/hB0Kq1C/under-armour-curry-8.jpg",
+    "price": 15199,
+    "text": "Мужские Кроссовки Under Armour Curry 8",
+    "liked": false
+  },
+  {
+    "id": 6,
+    "url": "https://i.ibb.co/P1MYN44/nike-kyrie-7.jpg",
+    "price": 11299,
+    "text": "Мужские Кроссовки Nike Kyrie 7",
+    "liked": false
+  },
+  {
+    "id": 7,
+    "url": "https://i.ibb.co/6rqvdTd/jordan-air-11.jpg",
+    "price": 10799,
+    "text": "Мужские Кроссовки Jordan Air Jordan 11",
+    "liked": false
+  },
+  {
+    "id": 8,
+    "url": "https://i.ibb.co/2tMgnTT/nike-lebron-xvii.jpg",
+    "price": 16499,
+    "text": "Мужские Кроссовки Nike LeBron XVIII",
+    "liked": false
+  },
+  {
+    "id": 9,
+    "url": "https://i.ibb.co/NmML3fh/nike-lebron-xvii-low.jpg",
+    "price": 13999,
+    "text": "Мужские Кроссовки Nike Lebron XVIII Low",
+    "liked": false
+  },
+  {
+    "id": 10,
+    "url": "https://i.ibb.co/phnfGwq/nike-blazer-mod-suede.jpg",
+    "price": 8499,
+    "text": "Мужские Кроссовки Nike Blazer Mid Suede",
+    "liked": false
+  },
+  {
+    "id": 11,
+    "url": "https://i.ibb.co/LNsq2Rv/puma-x-aka-boku.jpg",
+    "price": 8499,
+    "text": "Кроссовки Puma X Aka Boku Future Rider",
+
+    "liked": false
+  },
+  {
+    "id": 12,
+    "url": "https://i.ibb.co/MG36fmc/nike-kyrie-flytrap-IV.jpg",
+    "price": 11299,
+    "text": "Мужские Кроссовки Nike Kyrie Flytrap IV",
+    "liked": false
+  }
+]

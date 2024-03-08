@@ -1,0 +1,20 @@
+#gridSneakers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.textSneakers {
+  display: block;
+  width: 160px;
+}
+
+.priceSneakers {
+  display: flex;
+  width: 150px;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.buttonSneakers {
+  width: 20px;
+  height: 20px;
+}
