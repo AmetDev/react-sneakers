@@ -1,23 +1,38 @@
 #wrapper_slider {
   margin-top: 50px;
   display: flex;
-  position: relative;
-  flex-direction: row-reverse;
   justify-content: center;
-  align-items: center;
+}
+.ImgSlider {
+  display: flex;
+  flex-direction: row-reverse;
 }
 .titleImageSlider {
-  position: absolute;
-  top: 40%;
-  left: 15%;
+  margin-top: 80px;
   font-weight: 900;
   font-size: 38px;
   width: 300px;
 }
-#btnSwitch {
+.SliderBtn {
+  top: 180px;
+  position: relative;
+  right: 300px;
+  background-color: var(--color-green);
+  color: var(--color-white);
+  font-weight: 600;
+  border-radius: 30px;
   display: flex;
-  position: absolute;
-  margin-left: -20px;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 50px;
+}
+
+#btnSwitch {
+  margin-top: 13%;
+  margin-right: -10px;
+  margin-left: 350px;
+  display: flex;
   justify-content: center;
   align-items: center;
   background-color: var(--color-white);
