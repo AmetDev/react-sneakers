@@ -19,7 +19,7 @@ ul {
   display: flex;
   flex-direction: row;
   align-items: center;
-
+  justify-content: center;
   //position: relative;
 }
 
@@ -34,12 +34,11 @@ ul > a {
   }
 }
 ul > a:nth-child(2) {
-  margin-left: 40vw;
+  margin-left: 300px;
   margin-right: 0;
 }
 
 ul > a:first-child {
-  margin-left: 0vw;
   li {
     display: flex;
     flex-direction: row-reverse;
