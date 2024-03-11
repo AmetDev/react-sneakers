@@ -5,6 +5,7 @@ import plus from '../images/plus.svg'
 import { ElementGridSneakers } from './models/GridClass'
 
 var dataSneakers = []
+var localItems = { selectedItems: [], likedItems: [] }
 
 const fetchedData = async () => {
   try {
@@ -69,19 +70,58 @@ export const HomeGridSneakersRender = () => {
     wrapperGridSneakers.appendChild(wrapperSneakersElement)
 
     let checker = true
+    let findedElement = 0
     plusButton.addEventListener('click', () => {
       if (checker == false) {
         plusButton.src = plus
         plusButton.classList.remove('--active')
         wrapperSneakersElement.classList.remove('--active-element')
         element.selected = false
-
         checker = true
+        const result = JSON.parse(localStorage.getItem('localItems'))
+        let resultv1 = result
+        result.map((elementLocal) => {
+          if (elementLocal.id == element.id && elementLocal.selected === true) {
+            findedElement = elementLocal
+          }
+        })
+        console.log(findedElement)
+        if (findedElement !== 0) {
+          console.log('resilt')
+          resultv1.splice(findedElement.id, 1)
+        }
+        console.log('resilt', resultv1)
       } else {
         plusButton.src = done
         plusButton.classList.add('--active')
         wrapperSneakersElement.classList.add('--active-element')
         element.selected = true
+        const result = JSON.parse(localStorage.getItem('localItems'))
+        console.log('result', result)
+        if (result === null) {
+          localItems.selectedItems = []
+          localItems.selectedItems.push(element)
+          localStorage.setItem('localItems', JSON.stringify(localItems.selectedItems))
+          localItems.selectedItems = []
+        }
+        if (result.length == 0) {
+          console.log('it is null')
+          localItems.selectedItems = []
+          localItems.selectedItems.push(element)
+          localStorage.setItem('localItems', JSON.stringify(localItems.selectedItems))
+          localItems.selectedItems = []
+        }
+        if (result.length !== 0) {
+          result.forEach((elementLocal) => {
+            console.log('it is not null')
+            if (elementLocal.id != element.id) {
+              localItems.selectedItems = result
+              localItems.selectedItems.push(element)
+              localStorage.setItem('localItems', JSON.stringify(localItems.selectedItems))
+              localItems.selectedItems = []
+            }
+          })
+        }
 
         checker = false
       }
