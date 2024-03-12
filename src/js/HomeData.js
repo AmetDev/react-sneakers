@@ -28,6 +28,17 @@ const isDuplicated = (arr, element) => {
   })
   return check
 }
+const removeItemLocalStorage = (arr, element) => {
+  let arrTwo = arr
+
+  const resultIndex = arr.findIndex((object) => {
+    return object.id == element.id
+  })
+  if (resultIndex !== -1) {
+    arrTwo.splice(resultIndex, 1)
+  }
+  return arrTwo
+}
 const checkSelectedLocalStore = () => {
   const sneakersSelectedLocal = JSON.parse(localStorage.getItem('localItems'))
   if (sneakersSelectedLocal) {
@@ -72,15 +83,7 @@ export const HomeGridSneakersRender = () => {
     plusButton.style.height = '11px'
 
     plusButton.classList = 'plusButton'
-    console.log(checkSelectedLocalStore())
-    checkSelectedLocalStore().map((elementSelected) => {
-      if (elementSelected.id == element.id && elementSelected.selected) {
-        plusButton.src = done
-        plusButton.classList.add('--active')
-        wrapperSneakersElement.classList.add('--active-element')
-        element.selected = true
-      }
-    })
+
     textPrice.textContent = 'ЦЕНА:'
     textPrice.classList = 'textPrice'
     priceSneakers.textContent = `${object.price} руб.`
@@ -90,6 +93,14 @@ export const HomeGridSneakersRender = () => {
     wrapperSneakersElement.appendChild(likeBtn)
     wrapperSneakersElement.appendChild(imgSneakers)
     wrapperSneakersElement.classList = 'wrapperSneakersElement'
+    checkSelectedLocalStore().map((elementSelected) => {
+      if (elementSelected.id == element.id && elementSelected.selected) {
+        plusButton.src = done
+        plusButton.classList.add('--active')
+        wrapperSneakersElement.classList.add('--active-element')
+        element.selected = true
+      }
+    })
     likeBtn.classList = 'likeBtn'
     nameSneakers.appendChild(textSneakers)
     blockPriceWrapper.appendChild(textPrice)
@@ -104,11 +115,16 @@ export const HomeGridSneakersRender = () => {
     let checker = true
     let findedElement = 0
     plusButton.addEventListener('click', () => {
-      if (checker == false) {
+      if (plusButton.classList.contains('--active')) {
+        const resultv1 = JSON.parse(localStorage.getItem('localItems'))
         plusButton.src = plus
         plusButton.classList.remove('--active')
         wrapperSneakersElement.classList.remove('--active-element')
         element.selected = false
+        const updatedData = removeItemLocalStorage(resultv1, element)
+        localStorage.removeItem('localItems')
+        localStorage.setItem('localItems', JSON.stringify(updatedData))
+
         checker = true
       } else {
         plusButton.src = done
