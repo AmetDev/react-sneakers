@@ -79,6 +79,4 @@ export const sliderFunc = () => {
 
     wrapper_slider.appendChild(wrapper_slider_element)
   })
-
-  console.log(sliderObj)
 }

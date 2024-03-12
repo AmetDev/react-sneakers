@@ -6,7 +6,8 @@ import { ElementGridSneakers } from './models/GridClass'
 
 var dataSneakers = []
 var localItems = { selectedItems: [], likedItems: [] }
-
+let isDuplicatedData = true
+let counter = 0
 const fetchedData = async () => {
   try {
     const response = await fetch('https://65eb231e43ce164189335127.mockapi.io/sneakers/sneakers')
@@ -17,12 +18,32 @@ const fetchedData = async () => {
     console.error(error)
   }
 }
-
+const isDuplicated = (arr, element) => {
+  let check = true
+  arr.forEach((object) => {
+    if (object.id == element.id) {
+      console.log('proccess')
+      return (check = false)
+    }
+  })
+  return check
+}
+const checkSelectedLocalStore = () => {
+  const sneakersSelectedLocal = JSON.parse(localStorage.getItem('localItems'))
+  if (sneakersSelectedLocal) {
+    return sneakersSelectedLocal.map((element) => {
+      if (element.selected) {
+        return { id: element.id, selected: element.selected }
+      }
+    })
+  } else {
+    return []
+  }
+}
 export const HomeGridSneakersRender = () => {
   const wrapperGridSneakers = document.querySelector('#gridSneakers')
   dataSneakers.forEach((element) => {
     const object = new ElementGridSneakers(element.url, element.liked, element.text, element.price)
-
     const imgSneakers = document.createElement('img')
     const textSneakers = document.createElement('span')
     const priceSneakers = document.createElement('span')
@@ -36,6 +57,7 @@ export const HomeGridSneakersRender = () => {
     const likeElement = document.createElement('img')
     const likedElement = document.createElement('img')
     const likeBtn = document.createElement('button')
+
     likeElement.src = like
     likedElement.src = liked
     imgSneakers.src = object.img
@@ -48,7 +70,17 @@ export const HomeGridSneakersRender = () => {
     plusButton.src = plus
     plusButton.style.width = '11px'
     plusButton.style.height = '11px'
+
     plusButton.classList = 'plusButton'
+    console.log(checkSelectedLocalStore())
+    checkSelectedLocalStore().map((elementSelected) => {
+      if (elementSelected.id == element.id && elementSelected.selected) {
+        plusButton.src = done
+        plusButton.classList.add('--active')
+        wrapperSneakersElement.classList.add('--active-element')
+        element.selected = true
+      }
+    })
     textPrice.textContent = 'ЦЕНА:'
     textPrice.classList = 'textPrice'
     priceSneakers.textContent = `${object.price} руб.`
@@ -78,19 +110,6 @@ export const HomeGridSneakersRender = () => {
         wrapperSneakersElement.classList.remove('--active-element')
         element.selected = false
         checker = true
-        const result = JSON.parse(localStorage.getItem('localItems'))
-        let resultv1 = result
-        result.map((elementLocal) => {
-          if (elementLocal.id == element.id && elementLocal.selected === true) {
-            findedElement = elementLocal
-          }
-        })
-        console.log(findedElement)
-        if (findedElement !== 0) {
-          console.log('resilt')
-          resultv1.splice(findedElement.id, 1)
-        }
-        console.log('resilt', resultv1)
       } else {
         plusButton.src = done
         plusButton.classList.add('--active')
@@ -98,29 +117,22 @@ export const HomeGridSneakersRender = () => {
         element.selected = true
         const result = JSON.parse(localStorage.getItem('localItems'))
         console.log('result', result)
-        if (result === null) {
+        if (result == null) {
           localItems.selectedItems = []
           localItems.selectedItems.push(element)
           localStorage.setItem('localItems', JSON.stringify(localItems.selectedItems))
           localItems.selectedItems = []
-        }
-        if (result.length == 0) {
-          console.log('it is null')
-          localItems.selectedItems = []
-          localItems.selectedItems.push(element)
-          localStorage.setItem('localItems', JSON.stringify(localItems.selectedItems))
-          localItems.selectedItems = []
-        }
-        if (result.length !== 0) {
-          result.forEach((elementLocal) => {
-            console.log('it is not null')
-            if (elementLocal.id != element.id) {
-              localItems.selectedItems = result
-              localItems.selectedItems.push(element)
-              localStorage.setItem('localItems', JSON.stringify(localItems.selectedItems))
-              localItems.selectedItems = []
-            }
-          })
+        } else {
+          const resultLocal = JSON.parse(localStorage.getItem('localItems'))
+          let isDupResult = isDuplicated(resultLocal, element)
+          console.log('isDupResult', isDupResult)
+          if (isDupResult) {
+            localItems.selectedItems = resultLocal
+            localStorage.removeItem('localItems')
+            localItems.selectedItems.push(element)
+            localStorage.setItem('localItems', JSON.stringify(localItems.selectedItems))
+            localItems.selectedItems = []
+          }
         }
 
         checker = false
