@@ -29,15 +29,41 @@ const isDuplicated = (arr, element) => {
   return check
 }
 const updatedSelect = (arr, element) => {
-  let updatedArr = arr.map((elementLocal) => {
-    if (elementLocal.id == element.id) {
-      return { ...elementLocal, selected: true }
+  const isResult = isDuplicated(arr, element)
+  var updatedArr = [];
+  var counter = 0;
+  arr.forEach(elementArr=>{
+    if(elementArr.id == element.id && elementArr.selected == false) {
+      elementArr.selected = true
+      updatedArr.push(elementArr)
+    }
+    if(elementArr.id !== element.id) {
+      counter += 1;
+    }
+    if(arr.length == counter) {
+      updatedArr.push(element)
+    }
+    updatedArr.push(elementArr)
+
+  })
+  return updatedArr; // return the updated array
+}
+const updatedLiked = (arr, element) => {
+  const isResult = isDuplicated(arr, element)
+  var updatedArr = [];
+  var counter = 0;
+  updatedArr = arr.map((elementLocal)=>{
+    if(elementLocal.id ==element.id)
+    {
+      elementLocal.liked = true
+      return elementLocal
     } else {
-      return { ...element, selected: true }
+      return  elementLocal
     }
   })
-  return updatedArr
+  return updatedArr; // return the updated array
 }
+
 const updatedLikedObject = (element) => {
   element.liked = true
   return element
@@ -73,7 +99,7 @@ const checkSelectedLocalStore = () => {
   if (sneakersSelectedLocal) {
     return sneakersSelectedLocal.map((element) => {
       if (element.selected) {
-        return { id: element.id, selected: element.selected }
+        return { id: element.id, selected: element.selected, liked:element.liked }
       }
     })
   } else {
@@ -128,6 +154,10 @@ export const HomeGridSneakersRender = () => {
         plusButton.classList.add('--active')
         wrapperSneakersElement.classList.add('--active-element')
         element.selected = true
+      }
+      if(elementSelected.id == element.id && elementSelected.liked) {
+        likeElement.src = liked
+        likeBtn.classList.add('--active-like')
       }
     })
     likeBtn.classList = 'likeBtn'
@@ -190,17 +220,12 @@ export const HomeGridSneakersRender = () => {
         const resultLocalLike = JSON.parse(localStorage.getItem('localItems'))
         likeElement.src = liked
         likeBtn.classList.add('--active-like')
+        const resultUpdatedData = updatedLiked(resultLocalLike, element)
+        console.log(resultUpdatedData)
+        localStorage.setItem('localItems', JSON.stringify(resultUpdatedData))
         // const updatedDataLike = isDuplicatedforLike(resultLocalLike, element)
         // console.log(updatedDataLike)
-        const modifiedArrLocalStorage = resultLocalLike.map((elementLocal) => {
-          if (elementLocal.id == element.id) {
-            /* return elementLocal = isDuplicatedforLike(resultLocalLike, element) */
-            return { ...elementLocal, liked: true }
-          } else {
-            return elementLocal
-          }
-        })
-        console.log(modifiedArrLocalStorage)
+
       }
     })
   })
