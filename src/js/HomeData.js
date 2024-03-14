@@ -28,38 +28,146 @@ const isDuplicated = (arr, element) => {
   })
   return check
 }
-const updatedDataLike = (element) => {
+
+const updatedSelect = (arr, element) => {
+  const isResult = isDuplicated(arr, element)
+
+  var updatedArr = [];
+  var counter = 0;
+  console.log(arr)
+  if(arr.length === 0){
+    updatedArr.push(element)
+  }
+  arr.forEach(elementArr=>{
+    if(elementArr.id == element.id && elementArr.selected == false) {
+      elementArr.selected = true
+      updatedArr.push(elementArr)
+    }
+    if(elementArr.id !== element.id) {
+      counter += 1;
+      updatedArr.push(elementArr)
+    }
+    if(arr.length == counter) {
+      console.log("true")
+      updatedArr.push(element)
+    }
+
+
+  })
+  return updatedArr; // return the updated array
+}
+// const updatedLiked = (arr, element) => {
+//   const isResult = isDuplicated(arr, element)
+//   var updatedArr = [];
+//   var counter = 0;
+//   updatedArr = arr.map((elementLocal)=>{
+//     if(elementLocal.id ==element.id)
+//     {
+//       elementLocal.liked = true
+//       return elementLocal
+//     }
+//     if(elementLocal.id !== element.id) {
+//       counter +=1;
+//       return  elementLocal
+//     }
+//     if(counter == arr.length) {
+//       element.liked = true
+//        updatedArr.push(element)
+//       return  element
+//     }
+//   })
+//   return updatedArr; // return the updated array
+// }
+const updatedLiked = (arr, element) => {
+  // const isResult = isDuplicated(arr, element)
+
+  var updatedArr = [];
+  var counter = 0;
+  if(arr === null || arr.length === 0) {
+    element.selected = false
+    element.liked = true
+    updatedArr.push(element)
+    return updatedArr
+  }
+
+  arr.forEach(elementArr=>{
+    if(elementArr.id == element.id && elementArr.liked == false) {
+      elementArr.liked = true
+      updatedArr.push(elementArr)
+    }
+    if(elementArr.id !== element.id) {
+      counter += 1;
+      updatedArr.push(elementArr)
+    }
+    if(arr.length == counter) {
+      console.log("true")
+      element.selected = false
+      element.liked = true
+      updatedArr.push(element)
+    }
+
+
+  })
+  return updatedArr; // return the updated array
+}
+
+const updatedLikedObject = (element) => {
   element.liked = true
   return element
 }
-const isDuplicatedLike = (arr, element) => {
-  let check
-  if (arr == null) {
-    return element
-  } else {
-    arr.forEach((object) => {
-      if (object.id == element.id && object.liked === true) {
-        return (check = object)
-      }
-      if (object.id == element.id && object.liked === false) {
-        return (check = updatedDataLike(element))
-      }
-      if (object.id != element.id) {
-        return (check = updatedDataLike(element))
-      }
-    })
-  }
-  return check
+const isDuplicatedforLike = (arr, element) => {
+  let updatedObject
+  arr.forEach((object) => {
+    if (object.id == element.id && object.liked === false) {
+      return (updatedObject = updatedLikedObject(element))
+    }
+    if (object.id !== element.id) {
+      return (updatedObject = updatedLikedObject(element))
+    }
+    if (object.id == element.id && object.liked === true) {
+      return (updatedObject = object)
+    }
+  })
+  return updatedObject
 }
 
 const removeItemLocalStorage = (arr, element) => {
   let arrTwo = arr
 
   const resultIndex = arr.findIndex((object) => {
+    return object.id === element.id
+  })
+  if (resultIndex !== -1) {
+    if(arr[resultIndex].liked === true && arr[resultIndex].selected === true ){
+      console.log('selected is false')
+      let updated = arr[resultIndex]
+      updated.selected = false
+      console.log(updated)
+      arrTwo.splice(resultIndex, 1, updated)
+    }
+    if(arr[resultIndex].liked === false && arr[resultIndex].selected === true ) {
+      arrTwo.splice(resultIndex, 1)
+    }
+
+  }
+  return arrTwo
+}
+const removeItemLikeLocalStorage = (arr, element) => {
+  let arrTwo = arr
+
+  const resultIndex = arr.findIndex((object) => {
     return object.id == element.id
   })
   if (resultIndex !== -1) {
-    arrTwo.splice(resultIndex, 1)
+    if(arr[resultIndex].selected == true && arr[resultIndex].liked === true){
+      let updated = arr[resultIndex]
+      updated.liked = false
+      arrTwo.splice(resultIndex, 1, updated)
+    }
+    if(arr[resultIndex].liked == true && arr[resultIndex].selected === false) {
+      arrTwo.splice(resultIndex, 1)
+    }
+
   }
   return arrTwo
 }
@@ -67,8 +175,8 @@ const checkSelectedLocalStore = () => {
   const sneakersSelectedLocal = JSON.parse(localStorage.getItem('localItems'))
   if (sneakersSelectedLocal) {
     return sneakersSelectedLocal.map((element) => {
-      if (element.selected) {
-        return { id: element.id, selected: element.selected }
+      if (element.selected == true || element.liked == true) {
+        return { id: element.id, selected: element.selected, liked:element.liked }
       }
     })
   } else {
@@ -117,15 +225,20 @@ export const HomeGridSneakersRender = () => {
     wrapperSneakersElement.appendChild(likeBtn)
     wrapperSneakersElement.appendChild(imgSneakers)
     wrapperSneakersElement.classList = 'wrapperSneakersElement'
+
+    likeBtn.classList = 'likeBtn'
     checkSelectedLocalStore().map((elementSelected) => {
-      if (elementSelected.id == element.id && elementSelected.selected) {
+      if (elementSelected.id == element.id && elementSelected.selected == true) {
         plusButton.src = done
         plusButton.classList.add('--active')
         wrapperSneakersElement.classList.add('--active-element')
         element.selected = true
       }
+      if(elementSelected.id == element.id && elementSelected.liked==true) {
+        likeElement.src = liked
+        likeBtn.classList.add('--active-like')
+      }
     })
-    likeBtn.classList = 'likeBtn'
     nameSneakers.appendChild(textSneakers)
     blockPriceWrapper.appendChild(textPrice)
     blockPriceWrapper.appendChild(priceSneakers)
@@ -164,40 +277,36 @@ export const HomeGridSneakersRender = () => {
           localItems.selectedItems = []
         } else {
           const resultLocal = JSON.parse(localStorage.getItem('localItems'))
-          let isDupResult = isDuplicated(resultLocal, element)
-          console.log('isDupResult', isDupResult)
-          if (isDupResult) {
-            localItems.selectedItems = resultLocal
-            localStorage.removeItem('localItems')
-            localItems.selectedItems.push(element)
-            localStorage.setItem('localItems', JSON.stringify(localItems.selectedItems))
-            localItems.selectedItems = []
-          }
+          const updatedArrSelect = updatedSelect(resultLocal, element)
+          console.log(updatedArrSelect)
+          localItems.selectedItems = updatedArrSelect
+          localStorage.removeItem('localItems')
+          localStorage.setItem('localItems', JSON.stringify(localItems.selectedItems))
+          localItems.selectedItems = []
         }
         checker = false
       }
     })
-    let checkerLike = true
     likeBtn.addEventListener('click', () => {
-      if (checkerLike == false) {
+      if (likeBtn.classList.contains('--active-like')) {
         likeElement.src = like
         element.liked = false
         likeBtn.classList.remove('--active-like')
-        checkerLike = true
+        const resulttoDeleteLike = JSON.parse((localStorage.getItem('localItems')))
+        const updatedRemove = removeItemLikeLocalStorage(resulttoDeleteLike, element)
+        localStorage.setItem('localItems', JSON.stringify(updatedRemove))
       } else {
-        const localStorageData = JSON.parse(localStorage.getItem('localItems'))
+
+        const resultLocalLike = JSON.parse(localStorage.getItem('localItems'))
         likeElement.src = liked
         likeBtn.classList.add('--active-like')
-        element.liked = true
-        let isDupResult = isDuplicatedLike(localStorageData, element)
-        console.log('isDupResult', isDupResult)
+        const resultUpdatedData = updatedLiked(resultLocalLike, element)
+        console.log(resultUpdatedData)
+        localStorage.setItem('localItems', JSON.stringify(resultUpdatedData))
+        // const updatedDataLike = isDuplicatedforLike(resultLocalLike, element)
+        // console.log(updatedDataLike)
 
-        localItems.likedItems = localStorageData
-        localStorage.removeItem('localItems')
-        localItems.likedItems.push(isDupResult)
-        localStorage.setItem('localItems', JSON.stringify(localItems.likedItems))
-        localItems.likedItems = []
-        checkerLike = false
+
       }
     })
   })
