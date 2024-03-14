@@ -2,8 +2,34 @@ import card from '../images/card.svg'
 import like from '../images/like.svg'
 import profile from '../images/profile.svg'
 import sneakersLogo from '../images/sneakers-logo.svg'
+import {updatedPriceSum} from "@/js/UpdatedPriceSum";
+import {btnsSelectList} from "@/js/HomeData";
+
 export const header = () => {
+  let priceNumber = 0;
+  const dataPriceFirst = JSON.parse(localStorage.getItem('localItems'))
+  dataPriceFirst.map(element=>{
+    if(element.selected == true){
+      priceNumber += element.price;
+    }
+  })
   const header_wrapper_ul = document.querySelector('#header_wrapper_ul')
+  const dataPrice = JSON.parse(localStorage.getItem('localItems'))
+  let btnsSelectList = document.getElementsByClassName("buttonSneakers");
+  console.log(btnsSelectList)
+  Array.from(btnsSelectList).forEach(element => {
+    element.addEventListener('click', () => {
+      // ваш обработчик события клика
+      const dataPrice = JSON.parse(localStorage.getItem('localItems'))
+      dataPrice.map(element=>{
+        if(element.selected == true){
+          priceNumber += element.price;
+        }
+      })
+      console.log("hello world", priceNumber)
+
+    });
+  });
   const header_arr = [
     {
       imgSrc: sneakersLogo,
@@ -11,7 +37,7 @@ export const header = () => {
     },
     {
       imgSrc: card,
-      title: ['1260 руб.'],
+      title: [`${priceNumber} руб.`],
     },
     {
       imgSrc: like,

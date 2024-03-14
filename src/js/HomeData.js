@@ -3,17 +3,20 @@ import like from '../images/like2.svg'
 import liked from '../images/liked.svg'
 import plus from '../images/plus.svg'
 import { ElementGridSneakers } from './models/GridClass'
+import {updatedPriceSum} from "@/js/UpdatedPriceSum";
+import {header} from "@/js/header";
 
 var dataSneakers = []
 var localItems = { selectedItems: [], likedItems: [] }
 let isDuplicatedData = true
-let counter = 0
+export let btnsSelectList;
 const fetchedData = async () => {
   try {
     const response = await fetch('https://65eb231e43ce164189335127.mockapi.io/sneakers/sneakers')
     const data = await response.json()
     dataSneakers = data
     HomeGridSneakersRender()
+    header()
   } catch (error) {
     console.error(error)
   }
@@ -263,6 +266,7 @@ export const HomeGridSneakersRender = () => {
         localStorage.setItem('localItems', JSON.stringify(updatedData))
 
         checker = true
+
       } else {
         plusButton.src = done
         plusButton.classList.add('--active')
@@ -270,11 +274,13 @@ export const HomeGridSneakersRender = () => {
         element.selected = true
         const result = JSON.parse(localStorage.getItem('localItems'))
         console.log('result', result)
+
         if (result == null) {
           localItems.selectedItems = []
           localItems.selectedItems.push(element)
           localStorage.setItem('localItems', JSON.stringify(localItems.selectedItems))
           localItems.selectedItems = []
+
         } else {
           const resultLocal = JSON.parse(localStorage.getItem('localItems'))
           const updatedArrSelect = updatedSelect(resultLocal, element)
@@ -283,6 +289,7 @@ export const HomeGridSneakersRender = () => {
           localStorage.removeItem('localItems')
           localStorage.setItem('localItems', JSON.stringify(localItems.selectedItems))
           localItems.selectedItems = []
+
         }
         checker = false
       }
@@ -310,6 +317,13 @@ export const HomeGridSneakersRender = () => {
       }
     })
   })
+
+
 }
+export const nodeList = () => {
+  btnsSelectList = document.querySelectorAll(".buttonSneakers");
+  console.log(btnsSelectList)
+}
+
 //fixed
 fetchedData()
