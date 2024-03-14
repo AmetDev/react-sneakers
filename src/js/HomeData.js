@@ -311,5 +311,5 @@ export const HomeGridSneakersRender = () => {
     })
   })
 }
-
+//fixed
 fetchedData()
