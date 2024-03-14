@@ -28,6 +28,7 @@ const isDuplicated = (arr, element) => {
   })
   return check
 }
+
 const updatedSelect = (arr, element) => {
   const isResult = isDuplicated(arr, element)
 
@@ -129,6 +130,7 @@ const isDuplicatedforLike = (arr, element) => {
   })
   return updatedObject
 }
+
 const removeItemLocalStorage = (arr, element) => {
   let arrTwo = arr
 
@@ -282,7 +284,6 @@ export const HomeGridSneakersRender = () => {
           localStorage.setItem('localItems', JSON.stringify(localItems.selectedItems))
           localItems.selectedItems = []
         }
-
         checker = false
       }
     })
@@ -295,6 +296,7 @@ export const HomeGridSneakersRender = () => {
         const updatedRemove = removeItemLikeLocalStorage(resulttoDeleteLike, element)
         localStorage.setItem('localItems', JSON.stringify(updatedRemove))
       } else {
+
         const resultLocalLike = JSON.parse(localStorage.getItem('localItems'))
         likeElement.src = liked
         likeBtn.classList.add('--active-like')
@@ -303,6 +305,7 @@ export const HomeGridSneakersRender = () => {
         localStorage.setItem('localItems', JSON.stringify(resultUpdatedData))
         // const updatedDataLike = isDuplicatedforLike(resultLocalLike, element)
         // console.log(updatedDataLike)
+
 
       }
     })
