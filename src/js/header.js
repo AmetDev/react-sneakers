@@ -8,11 +8,14 @@ import {btnsSelectList} from "@/js/HomeData";
 export const header = () => {
   let priceNumber = 0;
   const dataPriceFirst = JSON.parse(localStorage.getItem('localItems'))
-  dataPriceFirst.map(element=>{
-    if(element.selected == true){
-      priceNumber += element.price;
-    }
-  })
+ if(dataPriceFirst !== null)
+ {
+   dataPriceFirst.map(element=>{
+     if(element.selected == true){
+       priceNumber += element.price;
+     }
+   })
+ }
   const header_wrapper_ul = document.querySelector('#header_wrapper_ul')
   const dataPrice = JSON.parse(localStorage.getItem('localItems'))
   let btnsSelectList = document.getElementsByClassName("buttonSneakers");

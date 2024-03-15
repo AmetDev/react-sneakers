@@ -274,6 +274,7 @@ export const HomeGridSneakersRender = () => {
         element.selected = true
         const result = JSON.parse(localStorage.getItem('localItems'))
         console.log('result', result)
+        //header()
 
         if (result == null) {
           localItems.selectedItems = []
