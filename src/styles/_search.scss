@@ -1,0 +1,26 @@
+#wrapperSearch {
+  margin: 0 auto;
+  max-width: 900px;
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-between;
+}
+.wrapperSearchAndDesc {
+  color: var(--color-black);
+  font-size: 32px;
+  font-weight: 600;
+}
+.InputWrapper {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 45px;
+  width: 250px;
+  border: 1px solid var(--color-middle-border-gray);
+  border-radius: var(--border-radius-lg);
+  input {
+    color: var(--color-middle-gray);
+    font-size: 14px;
+    font-weight: 500;
+  }
+}

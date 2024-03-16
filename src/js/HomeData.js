@@ -4,16 +4,22 @@ import like from '../images/like2.svg'
 import liked from '../images/liked.svg'
 import plus from '../images/plus.svg'
 import { ElementGridSneakers } from './models/GridClass'
+import { parsedData } from './searchBlock'
 
 var dataSneakers = []
 var localItems = { selectedItems: [], likedItems: [] }
 let isDuplicatedData = true
 export let btnsSelectList
-const fetchedData = async () => {
+export const fetchedData = async () => {
   try {
     const response = await fetch('https://65eb231e43ce164189335127.mockapi.io/sneakers/sneakers')
     const data = await response.json()
     dataSneakers = data
+    console.log(parsedData)
+    if (parsedData.length !== 0) {
+      dataSneakers = parsedData
+    }
+    console.log('fetchedData')
     HomeGridSneakersRender()
     header()
   } catch (error) {
@@ -156,6 +162,7 @@ const checkSelectedLocalStore = () => {
 }
 export const HomeGridSneakersRender = () => {
   const wrapperGridSneakers = document.querySelector('#gridSneakers')
+  wrapperGridSneakers.innerHTML = ''
   dataSneakers.forEach((element) => {
     const object = new ElementGridSneakers(element.url, element.liked, element.text, element.price)
     const imgSneakers = document.createElement('img')
