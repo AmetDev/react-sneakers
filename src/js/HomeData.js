@@ -5,6 +5,7 @@ import liked from '../images/liked.svg'
 import plus from '../images/plus.svg'
 import { ElementGridSneakers } from './models/GridClass'
 import { parsedData } from './searchBlock'
+import { skeletonSneakers } from './skeleton'
 
 var dataSneakers = []
 var localItems = { selectedItems: [], likedItems: [] }
@@ -12,6 +13,11 @@ let isDuplicatedData = true
 export let btnsSelectList
 export const fetchedData = async () => {
   try {
+    if (dataSneakers.length == 0) {
+      console.log('true')
+      let updated = skeletonSneakers()
+      console.log(updated)
+    }
     const response = await fetch('https://65eb231e43ce164189335127.mockapi.io/sneakers/sneakers')
     const data = await response.json()
     dataSneakers = data
@@ -20,6 +26,7 @@ export const fetchedData = async () => {
       dataSneakers = parsedData
     }
     console.log('fetchedData')
+
     HomeGridSneakersRender()
     header()
   } catch (error) {
@@ -163,7 +170,11 @@ const checkSelectedLocalStore = () => {
 export const HomeGridSneakersRender = () => {
   const wrapperGridSneakers = document.querySelector('#gridSneakers')
   wrapperGridSneakers.innerHTML = ''
+
   dataSneakers.forEach((element) => {
+    const wrapperGridSneakers2 = document.querySelector('#skeleton')
+    const updatedSkeleton = document.querySelector('.skeleton')
+    wrapperGridSneakers2.innerHTML = ''
     const object = new ElementGridSneakers(element.url, element.liked, element.text, element.price)
     const imgSneakers = document.createElement('img')
     const textSneakers = document.createElement('span')
@@ -302,4 +313,5 @@ export const nodeList = () => {
 }
 
 //fixed
+
 fetchedData()
