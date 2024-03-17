@@ -10,6 +10,7 @@
 .HeaderListElement {
   display: flex;
   flex-direction: row;
+  cursor: 'pointer';
   color: var(--color-gray);
 }
 nav {

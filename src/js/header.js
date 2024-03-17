@@ -50,7 +50,7 @@ export const header = () => {
   const checkToUpdate = document.getElementById('header_wrapper_ul')
   checkToUpdate.innerHTML = ''
 
-  header_arr.map((element) => {
+  header_arr.map((element, index) => {
     const elementLi = document.createElement('div')
 
     const elementImg = document.createElement('img')
@@ -71,6 +71,10 @@ export const header = () => {
     elementLink.classList.add('innerWrapperHeaderElement')
     elementLi.classList.add('HeaderListElement')
     elementImg.src = element.imgSrc
+
+    elementDiv.addEventListener('click', () => {
+      console.log(elementDiv)
+    })
     elementDiv.appendChild(elementLi)
     elementDiv.appendChild(elementImg)
     elementLink.appendChild(elementDiv)
