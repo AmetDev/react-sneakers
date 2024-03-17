@@ -4,6 +4,7 @@ import like from '../images/like2.svg'
 import liked from '../images/liked.svg'
 import plus from '../images/plus.svg'
 import { ElementGridSneakers } from './models/GridClass'
+import { popupCard } from './popup'
 import { parsedData } from './searchBlock'
 import { skeletonSneakers } from './skeleton'
 
@@ -29,6 +30,7 @@ export const fetchedData = async () => {
 
     HomeGridSneakersRender()
     header()
+    popupCard()
   } catch (error) {
     console.error(error)
   }
@@ -118,7 +120,7 @@ const isDuplicatedforLike = (arr, element) => {
   return updatedObject
 }
 
-const removeItemLocalStorage = (arr, element) => {
+export const removeItemLocalStorage = (arr, element) => {
   let arrTwo = arr
 
   const resultIndex = arr.findIndex((object) => {

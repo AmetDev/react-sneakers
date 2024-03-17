@@ -36,6 +36,7 @@ export const header = () => {
     {
       imgSrc: card,
       title: [`${priceNumber} руб.`],
+      type: 'button',
     },
     {
       imgSrc: like,
@@ -56,7 +57,10 @@ export const header = () => {
     const elementImg = document.createElement('img')
     const elementDiv = document.createElement('li')
     const elementLink = document.createElement('a')
-
+    if (element.type === 'button') {
+      console.log('button')
+      elementLink.setAttribute('id', 'btn')
+    }
     if (element.title.length > 1) {
       element.title.map((element) => {
         const elementTitle = document.createElement('span')
